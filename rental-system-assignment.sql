@@ -22,16 +22,16 @@ NULL);
 
 -- 3) List all rental records (start date, end date) with vehicle's registration number, brand, and customer name, sorted by vehicle's categories followed by start date.
 	
-	SELECT start_date, end_date, veh_reg_no, brand, name
-	 FROM rental_records 
-	 JOIN vehicles  USING (veh_reg_no)
-	 JOIN customers USING (customer_id)
-	ORDER BY category, start_date;
+SELECT start_date, end_date, veh_reg_no, brand, name
+FROM rental_records 
+JOIN vehicles  USING (veh_reg_no)
+JOIN customers USING (customer_id)
+ORDER BY category, start_date;
 	
 	
 -- 4) List all the expired rental records (end_date before CURDATE()).
 
-	SELECT * FROM rental_records WHERE end_date < CURDATE();
+SELECT * FROM rental_records WHERE end_date < CURDATE();
 	
 -- 5) List the vehicles rented out on '2012-01-10' (not available for rental), in columns of vehicle registration no, customer name, start date and end date. (Hint: the given date is in between the start_date and end_date.)
 
@@ -61,10 +61,9 @@ WHERE start_date BETWEEN '2012-01-03' AND '2012-01-18'
 
 SELECT veh_reg_no, brand, vehicles.desc
 FROM vehicles
-WHERE
-   veh_reg_no NOT IN
-      (SELECT DISTINCT veh_reg_no FROM rental_records
-       WHERE '2012-01-10' BETWEEN start_date AND end_date);
+WHERE veh_reg_no NOT IN
+(SELECT DISTINCT veh_reg_no FROM rental_records
+ WHERE '2012-01-10' BETWEEN start_date AND end_date);
 
 
 -- 9) Similarly, list the vehicles available for rental for the period from '2012-01-03' to '2012-01-18'.
@@ -72,9 +71,9 @@ WHERE
 SELECT veh_reg_no, brand, vehicles.desc
 FROM vehicles join rental_records using (veh_reg_no)
 WHERE not (
-	(start_date >= '2012-01-03' and start_date <= '2012-01-18') 
-	or (end_date >= '2012-01-03' and end_date <= '2012-01-18')
-    or (start_date <= '2012-01-03' and end_date >= '2012-01-18')
+(start_date >= '2012-01-03' and start_date <= '2012-01-18') 
+OR (end_date >= '2012-01-03' and end_date <= '2012-01-18')
+OR (start_date <= '2012-01-03' and end_date >= '2012-01-18')
 );
 
 

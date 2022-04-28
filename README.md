@@ -1,7 +1,6 @@
 # rental-system-sql
 
---1) Customer 'Angel' has rented 'SBA1111A' from today for 10 days. (Hint: You need to insert a rental record. Use a SELECT subquery to get the customer_id to do this you will need to use parenthesis for your subquery as one of your values. Use CURDATE() (or NOW()) for today, and DATE_ADD(CURDATE(), INTERVAL x unit) to compute a future date.)
-
+--1) Customer 'Angel' has rented 'SBA1111A' from today for 10 days. 
 INSERT INTO rental_records 
 VALUES(
 NULL,
@@ -26,7 +25,7 @@ VALUES
     NULL); 
 
 
---3) List all rental records (start date, end date) with vehicle's registration number, brand, and customer name, sorted by vehicle's categories followed by start date.
+--3) List all rental records (start date, end date) with vehicle's registration number, brand, customer name, sorted by vehicle's categories followed by start date.
 	
 	SELECT start_date, end_date, veh_reg_no, brand, name
 	 FROM rental_records 
@@ -40,7 +39,7 @@ VALUES
   SELECT * FROM rental_records WHERE end_date < CURDATE();
 	
 
---5) List the vehicles rented out on '2012-01-10' (not available for rental), in columns of vehicle registration no, customer name, start date and end date. (Hint: the given date is in between the start_date and end_date.)
+--5) List the vehicles rented out on '2012-01-10' (not available for rental), in columns of vehicle registration no, customer name, start date and end date. 
 
 SELECT veh_reg_no, name, start_date, end_date
 FROM customers join rental_records using (customer_id)
@@ -55,8 +54,7 @@ JOIN customers USING (customer_id)
 WHERE CURDATE() BETWEEN start_date AND end_date;
 
 
---7) Similarly, list the vehicles rented out (not available for rental) for the period from '2012-01-03' to '2012-01-18'. (Hint: start_date is inside the range; or end_date is inside the range; or start_date is before the range and end_date is beyond the range.)
-
+--7) Similarly, list the vehicles rented out (not available for rental) for the period from '2012-01-03' to '2012-01-18'. 
 SELECT veh_reg_no, name, start_date, end_date
 FROM rental_records 
   JOIN vehicles USING (veh_reg_no)
@@ -65,7 +63,7 @@ WHERE start_date BETWEEN '2012-01-03' AND '2012-01-18'
    OR end_date BETWEEN '2012-01-03' AND '2012-01-18'
    OR (start_date < '2012-01-03' AND end_date > '2012-01-18');
 
---8) List the vehicles (registration number, brand and description) available for rental (not rented out) on '2012-01-10' (Hint: You could use a subquery based on a earlier query).
+--8) List the vehicles (registration number, brand and description) available for rental (not rented out) on '2012-01-10' (
 
 SELECT veh_reg_no, brand, vehicles.desc
 FROM vehicles
